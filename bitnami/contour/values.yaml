@@ -479,6 +479,9 @@ envoy:
   ## @param envoy.shutdownManager.resources.requests [object] Specify resource requests which the container needs to spawn.
   ##
   shutdownManager:
+    ## @param envoy.shutdownManager.enabled Contour shutdownManager sidecar
+    ##
+    enabled: true
     resources:
       ## Example:
       ## limits:
