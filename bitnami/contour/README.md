@@ -189,9 +189,9 @@ $ helm uninstall my-release
 | `envoy.resources.requests`                          | Specify resource requests which the container needs to spawn.                                                         | `{}`                   |
 | `envoy.command`                                     | Override default command                                                                                              | `[]`                   |
 | `envoy.args`                                        | Override default args                                                                                                 | `[]`                   |
+| `envoy.shutdownManager.enabled`                     | Contour shutdownManager sidecar                                                                                       | `true`                 |
 | `envoy.shutdownManager.resources.limits`            | Specify resource limits which the container is not allowed to succeed.                                                | `{}`                   |
 | `envoy.shutdownManager.resources.requests`          | Specify resource requests which the container needs to spawn.                                                         | `{}`                   |
-| `envoy.shutdownManager.enabled`                     | Contour shutdownManager sidecar                                                                                       | `true`                 |
 | `envoy.kind`                                        | Install as deployment or daemonset                                                                                    | `daemonset`            |
 | `envoy.replicaCount`                                | Desired number of Controller pods                                                                                     | `1`                    |
 | `envoy.lifecycleHooks`                              | lifecycleHooks for the container to automate configuration before or after startup.                                   | `{}`                   |
@@ -246,6 +246,7 @@ $ helm uninstall my-release
 | `envoy.customStartupProbe`                          | Override default startup probe                                                                                        | `{}`                   |
 | `envoy.terminationGracePeriodSeconds`               | Envoy termination grace period in seconds                                                                             | `300`                  |
 | `envoy.logLevel`                                    | Envoy log level                                                                                                       | `info`                 |
+| `envoy.service.targetPorts`                         | Map the controller service HTTP/HTTPS port                                                                            | `{}`                   |
 | `envoy.service.type`                                | Type of Envoy service to create                                                                                       | `LoadBalancer`         |
 | `envoy.service.externalTrafficPolicy`               | Envoy Service external cluster policy. If `envoy.service.type` is NodePort or LoadBalancer                            | `Local`                |
 | `envoy.service.labels`                              | Labels to add to te envoy service                                                                                     | `{}`                   |
