@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-//Adding a comment to run VIB again
 export let random = (Math.random() + 1).toString(36).substring(7);
 
 export const importAStreamApplication = () => {
@@ -18,6 +17,7 @@ export const importAStreamApplication = () => {
 };
 
 export const importATaskApplication = () => {
+  cy.visit('/dashboard');
   cy.contains('button', 'Add application(s)').click();
   cy.contains(
     '.clr-control-label',
