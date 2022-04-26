@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import random from './utils';
+import { random } from './utils.js';
 import {
   importAStreamApplication,
   importATaskApplication,
@@ -16,7 +16,7 @@ it('allows getting Spring Cloud Dataflow info', () => {
     .and('contain', 'Shell');
 });
 
-it('allows a stream to be created', () => {
+it('allows a stream to be created and deployed', () => {
   const STREAM = 'mongodb | cassandra';
 
   importAStreamApplication();
@@ -31,6 +31,7 @@ it('allows a stream to be created', () => {
     cy.get('input[placeholder="Stream Name"]').type(
       `${stream.newStream.name}-${random}`
     );
+    console.log(random);
     cy.contains('.btn-primary', 'Create the stream').click();
     cy.contains(
       '.datagrid-inner-wrapper',
@@ -38,24 +39,19 @@ it('allows a stream to be created', () => {
     );
   });
   cy.contains('.toast-container', 'successfully');
-});
-
-it('allows a stream to be deployed', () => {
-  importAStreamApplication();
-  cy.visit('dashboard/#/streams/list');
   cy.contains('clr-dg-cell', 'UNDEPLOYED')
     .siblings('clr-dg-cell', 'test-stream')
     .first()
     .click();
   cy.contains('button#btn-deploy', 'Deploy stream').click();
   cy.contains('button', 'Deploy stream').click();
-  cy.contains('.modal-content', 'Deploy stream');
   cy.get('.toast-container').should('contain', 'Deploy success');
 });
 
-it('checks if a task is properly created and schedule a task', () => {
+it('allows a task to be scheduled and destroyed', () => {
   const CRON_EXPRESSION = '*/5 * * * *';
 
+  cy.visit('/dashboard');
   importATaskApplication();
   createATask();
   cy.get('[routerlink="tasks-jobs/tasks"]').click();
@@ -72,6 +68,14 @@ it('checks if a task is properly created and schedule a task', () => {
   cy.get('input[name="example"]').last().type(CRON_EXPRESSION);
   cy.contains('button', 'Create schedule(s)').click();
   cy.contains('.toast-container', 'Successfully');
+  cy.contains('a', 'Tasks').click();
+  cy.contains('clr-dg-cell', 'UNKNOWN')
+    .siblings('clr-dg-cell', 'test-task-')
+    .first()
+    .click();
+  cy.contains('button', 'Destroy task').click();
+  cy.contains('.btn-danger', 'Destroy the task').click();
+  cy.contains('.toast-container', '1 task definition(s) destroyed.');
 });
 
 it('allows importing a task from a file and destroying it ', () => {
@@ -92,4 +96,12 @@ it('allows importing a task from a file and destroying it ', () => {
   cy.contains('.modal-content', 'Confirm Destroy Task');
   cy.contains('button', 'Destroy the task').click();
   cy.get('.toast-container').should('contain', 'destroyed');
+});
+
+it('allows unregistering of an application', () => {
+  importAStreamApplication();
+  cy.get('clr-dg-cell').siblings('clr-dg-cell', 'PROCESSOR').first().click();
+  cy.contains('button', 'Unregister Application').click();
+  cy.contains('button', 'Unregister the application').click();
+  cy.get('.toast-container').should('contain', 'Successfully removed app');
 });
