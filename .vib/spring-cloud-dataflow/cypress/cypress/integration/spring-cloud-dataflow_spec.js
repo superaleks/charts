@@ -4,7 +4,7 @@ import {
   importAStreamApplication,
   importATaskApplication,
   createATask,
-} from '/prepare-app-state';
+} from './prepare-app-state';
 
 it('allows getting Spring Cloud Dataflow info', () => {
   cy.visit('/dashboard');
@@ -15,8 +15,6 @@ it('allows getting Spring Cloud Dataflow info', () => {
     .and('contain', 'Dashboard')
     .and('contain', 'Shell');
 });
-
-//this is a comment
 it('allows a stream to be created', () => {
   const STREAM = 'mongodb | cassandra';
 
