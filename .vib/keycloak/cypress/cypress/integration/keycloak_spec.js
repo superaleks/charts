@@ -4,23 +4,24 @@ import { random } from './utils';
 it('allows login/logout', () => {
   cy.login();
   cy.get('#input-error').should('not.exist');
+  cy.reload();
   cy.get('.dropdown-toggle').click({ force: true });
   cy.contains('Sign Out').click();
   cy.contains('#kc-login', 'Sign In');
 });
 
-it('allows changing user data', () => {
+it('allows changing admin data', () => {
   cy.login();
   cy.get('.dropdown-toggle').click({ force: true });
   cy.contains('a', 'Manage account').click({ force: true });
-  cy.contains('p', 'Account console loading').should('not.exist'); //Wait until the loading is finished to continue with actions
+  cy.contains('Account console loading').should('not.exist');
   cy.contains('a', 'Personal').click({ force: true });
-  cy.fixture('users').then((user) => {
-    cy.get('#first-name').clear().type(`${user.newUser.firstName}.${random}`);
-    cy.get('#last-name').clear().type(`${user.newUser.lastName}.${random}`);
-    cy.get('#email-address').clear().type(`${user.newUser.email}`);
+  cy.fixture('admins').then((user) => {
+    cy.get('#first-name').clear().type(`${user.newAdmin.firstName}.${random}`);
+    cy.get('#last-name').clear().type(`${user.newAdmin.lastName}.${random}`);
+    cy.get('#email-address').clear().type(`${user.newAdmin.email}`);
     cy.get('#save-btn').click();
-    cy.contains('.pf-c-alert__title', 'has been updated');
+    cy.contains('Your account has been updated');
   });
 });
 
@@ -38,21 +39,20 @@ it('allows creating a new user', () => {
   cy.contains('.alert', 'Success');
 });
 
-it('allows the upload and delete of a client ', () => {
+it('allows the upload and delete of a locale ', () => {
   cy.login();
-  cy.contains('Import').click();
+  cy.contains('Localization').click();
+  cy.contains('Upload localization').click();
   cy.get('input#import-file').selectFile(
-    'cypress/fixtures/import-clients.json',
+    'cypress/fixtures/empty-localization-file.json',
     {
       force: true,
     }
   );
+  cy.fixture('locales').then((locale) => {
+    cy.get('#locale').type(`${locale.German}.${random}`);
+  });
   cy.contains('button', 'Import').click();
-  cy.contains('.alert', 'Success');
-  cy.contains('span', 'ADDED');
-  cy.get('[data-ng-show="access.queryClients"').click();
-  cy.contains('td', 'test-client').siblings('td', 'Delete').last().click();
-  cy.contains('button', 'Delete').click();
   cy.contains('.alert', 'Success');
 });
 
