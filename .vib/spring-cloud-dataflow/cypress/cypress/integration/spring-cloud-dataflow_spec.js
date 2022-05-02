@@ -15,14 +15,15 @@ it('allows getting Spring Cloud Dataflow info', () => {
 });
 
 it('allows a stream to be created and deployed', () => {
-  const STREAM = 'mongodb | cassandra';
   const STREAM_APPLICATION = 'Stream application starters for Kafka/Maven';
 
   importAnApplication(STREAM_APPLICATION);
-  cy.visit('/dashboard');
-  cy.get('[routerlink="streams/list"').click();
-  cy.contains('.btn-primary', 'Create stream(s)').click();
-  cy.get('.CodeMirror-line').type(STREAM);
+  cy.visit('dashboard/#/streams/list');
+  cy.contains('button', 'Create stream(s)').click();
+  cy.fixture('streams').then((stream) => {
+    cy.get('.CodeMirror-line').type(stream.newStream.type);
+  });
+
   cy.contains('#v-2', 'mongodb').and('contain', 'cassandra');
   cy.contains('button', 'Create stream(s)').click();
   cy.get('.modal-content').should('contain', 'Create Stream');
@@ -30,41 +31,48 @@ it('allows a stream to be created and deployed', () => {
     cy.get('input[placeholder="Stream Name"]').type(
       `${stream.newStream.name}-${random}`
     );
-    cy.contains('.btn-primary', 'Create the stream').click();
+    cy.contains('button', 'Create the stream').click();
     cy.contains(
       '.datagrid-inner-wrapper',
       `${stream.newStream.name}-${random}`
     );
+    cy.contains('.toast-container', 'successfully');
+    cy.contains('clr-dg-cell', 'UNDEPLOYED')
+      .siblings('clr-dg-cell', stream.newStream.name)
+      .first()
+      .click();
   });
-  cy.contains('.toast-container', 'successfully');
-  cy.contains('clr-dg-cell', 'UNDEPLOYED')
-    .siblings('clr-dg-cell', 'test-stream')
-    .first()
-    .click();
+
   cy.contains('button#btn-deploy', 'Deploy stream').click();
   cy.contains('button', 'Deploy stream').click();
   cy.get('.toast-container').should('contain', 'Deploy success');
 });
 
 it('allows a task to be scheduled and destroyed', () => {
-  const CRON_EXPRESSION = '*/5 * * * *';
-  const TASK_APPLICATION = 'Task application starters for Maven';
-  const TASK_TYPE = 'timestamp';
-
-  importAnApplication(TASK_APPLICATION);
-  createATask(TASK_TYPE);
-  cy.get('[routerlink="tasks-jobs/tasks"]').click();
-  cy.contains('clr-dg-cell', 'UNKNOWN')
-    .siblings('clr-dg-cell', 'test-task')
-    .first()
-    .click();
+  cy.fixture('applications').then((application) => {
+    importAnApplication(application.newApplication.taskApplicationType);
+  });
+  cy.fixture('schedules').then((schedule) => {
+    createATask(schedule.newSchedule.taskType);
+  });
+  cy.visit('dashboard/#/tasks-jobs/tasks');
+  cy.fixture('tasks').then((task) => {
+    cy.contains('clr-dg-cell', 'UNKNOWN')
+      .siblings('clr-dg-cell', task.newTask.name)
+      .first()
+      .click();
+  });
   cy.contains('button', 'Schedule').click();
   cy.fixture('schedules').then((schedule) => {
     cy.get('input[name="example"]')
       .first()
       .type(`${schedule.newSchedule.name}-${random}`);
+
+    cy.get('input[name="example"]')
+      .last()
+      .type(`${schedule.newSchedule.cronExpression}`);
   });
-  cy.get('input[name="example"]').last().type(CRON_EXPRESSION);
+
   cy.contains('button', 'Create schedule(s)').click();
   cy.contains('.toast-container', 'Successfully');
   cy.contains('a', 'Tasks').click();
@@ -73,22 +81,21 @@ it('allows a task to be scheduled and destroyed', () => {
     .first()
     .click();
   cy.contains('button', 'Destroy task').click();
-  cy.contains('.btn-danger', 'Destroy the task').click();
-  cy.contains('.toast-container', '1 task definition(s) destroyed.');
+  cy.contains('button', 'Destroy the task').click();
+  cy.contains('1 task definition(s) destroyed.');
 });
 
 it('allows importing a task from a file and destroying it ', () => {
-  cy.visit('/dashboard');
-  cy.get('[routerlink="manage/tools"]').click();
+  cy.visit('/dashboard/#/manage/tools');
   cy.contains('a', 'Import tasks from a JSON file').click();
   cy.get('input[type="file"]').selectFile(
     'cypress/fixtures/task-to-import.json',
     { force: true }
   );
   cy.contains('button', 'Import').click();
-  cy.contains('.modal-body', '1 task(s) created');
+  cy.contains('1 task(s) created');
   cy.get('.close').click();
-  cy.get('[routerlink="tasks-jobs/tasks"]').click();
+  cy.visit('dashboard/#/tasks-jobs/tasks');
   cy.contains('button', 'Group Actions').click();
   cy.get('[aria-label="Select All"]').click({ force: true });
   cy.contains('button', 'Destroy task').click();
@@ -98,11 +105,11 @@ it('allows importing a task from a file and destroying it ', () => {
 });
 
 it('allows unregistering of an application', () => {
-  const STREAM_APPLICATION = 'Stream application starters for Kafka/Maven';
-
-  importAnApplication(STREAM_APPLICATION);
+  cy.fixture('applications').then((application) => {
+    importAnApplication(application.newApplication.streamApplicationType);
+  });
   cy.get('clr-dg-cell').siblings('clr-dg-cell', 'PROCESSOR').first().click();
   cy.contains('button', 'Unregister Application').click();
   cy.contains('button', 'Unregister the application').click();
-  cy.get('.toast-container').should('contain', 'Successfully removed app');
+  cy.contains('Successfully removed app');
 });
