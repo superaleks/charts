@@ -19,7 +19,7 @@ command:
     exec: php -version
     exit-status: 0
     stdout:
-      - "The PHP Group"
+      - "The PHP Group"å
     stderr: []
   apache-test:
     exec: /opt/bitnami/apache/bin/httpd -v
