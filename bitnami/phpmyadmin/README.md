@@ -7,7 +7,7 @@ phpMyAdmin is a free software tool written in PHP, intended to handle the admini
 [Overview of phpMyAdmin](https://www.phpmyadmin.net/)
 
 Trademarks: This software listing is packaged by Bitnami. The respective trademarks mentioned in the offering are owned by the respective companies, and use of them does not imply any affiliation or endorsement.
-                           
+
 ## TL;DR
 
 ```console
@@ -299,23 +299,23 @@ In the first two cases, it's needed a certificate and a key. We would expect the
 
 - certificate files should look like (and there can be more than one certificate if there is a certificate chain)
 
-    ```console
-    -----BEGIN CERTIFICATE-----
-    MIID6TCCAtGgAwIBAgIJAIaCwivkeB5EMA0GCSqGSIb3DQEBCwUAMFYxCzAJBgNV
-    ...
-    jScrvkiBO65F46KioCL9h5tDvomdU1aqpI/CBzhvZn1c0ZTf87tGQR8NK7v7
-    -----END CERTIFICATE-----
-    ```
+  ```console
+  -----BEGIN CERTIFICATE-----
+  MIID6TCCAtGgAwIBAgIJAIaCwivkeB5EMA0GCSqGSIb3DQEBCwUAMFYxCzAJBgNV
+  ...
+  jScrvkiBO65F46KioCL9h5tDvomdU1aqpI/CBzhvZn1c0ZTf87tGQR8NK7v7
+  -----END CERTIFICATE-----
+  ```
 
 - keys should look like:
 
-    ```console
-    -----BEGIN RSA PRIVATE KEY-----
-    MIIEogIBAAKCAQEAvLYcyu8f3skuRyUgeeNpeDvYBCDcgq+LsWap6zbX5f8oLqp4
-    ...
-    wrj2wDbCDCFmfqnSJ+dKI3vFLlEz44sAV8jX/kd4Y6ZTQhlLbYc=
-    -----END RSA PRIVATE KEY-----
-    ```
+  ```console
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEogIBAAKCAQEAvLYcyu8f3skuRyUgeeNpeDvYBCDcgq+LsWap6zbX5f8oLqp4
+  ...
+  wrj2wDbCDCFmfqnSJ+dKI3vFLlEz44sAV8jX/kd4Y6ZTQhlLbYc=
+  -----END RSA PRIVATE KEY-----
+  ```
 
 If you are going to use Helm to manage the certificates, please copy these values into the `certificate` and `key` values for a given `ingress.secrets` entry.
 
@@ -422,9 +422,9 @@ Please read the update notes carefully.
 **What changes were introduced in this major version?**
 
 - Previous versions of this Helm Chart use `apiVersion: v1` (installable by both Helm 2 and 3), this Helm Chart was updated to `apiVersion: v2` (installable by Helm 3 only). [Here](https://helm.sh/docs/topics/charts/#the-apiversion-field) you can find more information about the `apiVersion` field.
-- Move dependency information from the *requirements.yaml* to the *Chart.yaml*
-- After running `helm dependency update`, a *Chart.lock* file is generated containing the same structure used in the previous *requirements.lock*
-- The different fields present in the *Chart.yaml* file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
+- Move dependency information from the _requirements.yaml_ to the _Chart.yaml_
+- After running `helm dependency update`, a _Chart.lock_ file is generated containing the same structure used in the previous _requirements.lock_
+- The different fields present in the _Chart.yaml_ file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
 
 **Considerations when upgrading to this version**
 
@@ -527,4 +527,4 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License
