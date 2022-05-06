@@ -9,17 +9,18 @@ it('allows login/logout', () => {
   cy.contains('.message', 'logged out');
 });
 
-it('allows adding a comment to sample blogpost', () => {
+it('allows adding a comment to the sample blogpost', () => {
   cy.visit('/');
   cy.get('.wp-block-query');
   cy.get('.wp-block-post-title a').click();
   cy.fixture('posts').then((post) => {
-    cy.contains('.wp-block-post-title', post.title);
-    cy.contains('.wp-block-post-content', post.content);
-    cy.get('.wp-block-post-title').click();
+    cy.contains('.wp-block-post-title', post.title).click();
+  });
+
+  cy.fixture('comments').then((comment) => {
     cy.get('.commentlist').should('have.length', 1);
-    cy.contains('.comment-author', post.commenter);
-    cy.get('#comment').type(`${post.comment}.${random}`);
+    cy.contains('.comment-author', comment.newComment.commenter);
+    cy.get('#comment').type(`${comment.newComment.comment}.${random}`);
   });
   cy.fixture('users').then((user) => {
     cy.get('#author').type(user.userName);
@@ -27,10 +28,7 @@ it('allows adding a comment to sample blogpost', () => {
   });
 
   cy.get('#submit').click();
-  cy.contains(
-    '.comment-awaiting-moderation',
-    'your comment will be visible after it has been approved'
-  );
+  cy.contains('your comment will be visible after it has been approved');
 });
 
 it('checks if admin can create a post', () => {
@@ -45,29 +43,15 @@ it('checks if admin can create a post', () => {
   cy.contains('.editor-post-saved-state', 'Saved');
 });
 
-it('checks the SMTP configuration', () => {
+it('shows the SMTP configuration', () => {
   cy.login();
   cy.visit('/wp-admin/admin.php?page=wp-mail-smtp');
-  cy.contains('div', 'WP Mail SMTP');
-  cy.fixture('smtps').then((smtp) => {
-    cy.get('#wp-mail-smtp-setting-smtp-host').should(
-      'have.value',
-      smtp.smtpMailServer
-    );
-    cy.get('#wp-mail-smtp-setting-smtp-port').should(
-      'have.value',
-      smtp.smtpPort
-    );
-    cy.get('#wp-mail-smtp-setting-smtp-user').should(
-      'have.value',
-      smtp.smtpUser
-    );
-  });
-
+  cy.contains('WP Mail SMTP');
+  cy.contains('Email Test').click();
   cy.fixture('admins').then((admin) => {
-    cy.get('#wp-mail-smtp-setting-from_name').should(
+    cy.get('#wp-mail-smtp-setting-test_email').should(
       'have.value',
-      `${admin.wordpressFirstName} ${admin.wordpressLastName}`
+      `${admin.defaultAdmin.email}`
     );
   });
 });
