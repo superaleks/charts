@@ -52,13 +52,11 @@ command:
       - "wordpress_"
     stderr: [ ]
     timeout: 20000
-  wordpress-user-id:
-    exec: id -u
+  user-id-test:
+    exec: if [ "$(id -u)" -eq 0 ]; then exit 1; fi
     exit-status: 0
-    stdout:
-      - '1002'
-    stderr: [ ]
-    timeout: 20000
+    stdout: []
+    stderr: []
 addr:
   tcp://wordpress-mariadb:3306:
     reachable: true
