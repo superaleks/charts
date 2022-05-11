@@ -30,7 +30,11 @@ it('allows publishing a message to a created exchange', () => {
     cy.get('[name="name"]').type(`${exchange.newExchange.name}${random}`);
     cy.get('#arguments_1_mfkey').type(exchange.newExchange.argument1);
     cy.get('#arguments_1_mfvalue').type(exchange.newExchange.argument2);
-    cy.contains('Add exchange').click();
+    cy.contains('Add exchange')
+      .scrollIntoView()
+      .should('be.enabled')
+      .click({ force: true });
+    cy.reload();
     cy.get('table[class="list"]').should(
       'contain',
       `${exchange.newExchange.name}${random}`
@@ -39,7 +43,9 @@ it('allows publishing a message to a created exchange', () => {
   });
   cy.contains('Publish message').click();
   cy.fixture('messages').then((message) => {
-    cy.get('textarea').type(message.newMessage.payload);
+    cy.get('textarea')
+      .should('not.be.disabled')
+      .type(message.newMessage.payload);
   });
   cy.contains('input', 'Publish message').click();
   cy.contains('Message published, but not routed');
