@@ -61,7 +61,11 @@ it('allows adding a new queue and binding/unbinding it to the exchange', () => {
     cy.get('[name="name"]').type(`${queue.newQueue.name}${random}`);
     cy.get('#arguments_1_mfkey').type(queue.newQueue.argument1);
     cy.get('#arguments_1_mfvalue').type(queue.newQueue.argument2);
-    cy.contains('Add queue').click();
+    cy.contains('Add queue')
+      .scrollIntoView()
+      .should('be.enabled')
+      .click({ force: true });
+    cy.reload();
     cy.contains('table', `${queue.newQueue.name}${random}`);
   });
   cy.visit('#/exchanges');
