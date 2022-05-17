@@ -2,16 +2,16 @@
 import { random } from './utils';
 
 it('allows login/logout', () => {
-  const APP_NAME = 'RabbitMQ';
-
   cy.login();
-  cy.get('#versions').should('contain', APP_NAME);
+  cy.get('#versions')
+    .invoke('text')
+    .should('match', /RabbitMQ\s\d+\.\d+\.\d+/);
   cy.contains('.hider', 'Queued messages');
   cy.contains('Log out').click();
   cy.contains('#login', 'Username');
 });
 
-it('allows upload of broker definitions', () => {
+it('allows uploading broker definitions', () => {
   cy.login();
   cy.contains('Import definitions').click();
   cy.get('input[type="file"]').selectFile(
@@ -50,7 +50,7 @@ it('allows publishing a message to a created exchange', () => {
       .type(message.newMessage.payload);
   });
   cy.contains('input', 'Publish message').click();
-  cy.contains('Message published, but not routed');
+  cy.contains('Message published');
 });
 
 it('allows adding a new queue and binding/unbinding it to the exchange', () => {
@@ -62,10 +62,7 @@ it('allows adding a new queue and binding/unbinding it to the exchange', () => {
     cy.get('#arguments_1_mfkey').type(queue.newQueue.argument1);
     cy.get('#arguments_1_mfvalue').type(queue.newQueue.argument2);
     cy.contains('Add queue').click();
-    cy.get('table[class="list"]').should(
-      'contain',
-      `${queue.newQueue.name}${random}`
-    );
+    cy.contains('table', `${queue.newQueue.name}${random}`);
   });
   cy.visit('#/exchanges');
   cy.contains('amq.direct').click();
@@ -80,8 +77,6 @@ it('allows adding a new queue and binding/unbinding it to the exchange', () => {
 });
 
 it('allows adding a new admin and logging in as such', () => {
-  const APP_NAME = 'RabbitMQ';
-
   cy.login();
   cy.visit('/#/users');
   cy.contains('Add a user').click();
@@ -102,7 +97,9 @@ it('allows adding a new admin and logging in as such', () => {
     cy.get('[name="username"]').type(`${admin.newAdmin.userName}${random}`);
     cy.get('[name="password"]').type(`${admin.newAdmin.password}${random}`);
     cy.contains('Login').click();
-    cy.get('#versions').should('contain', APP_NAME);
+    cy.get('#versions')
+      .invoke('text')
+      .should('match', /RabbitMQ\s\d+\.\d+\.\d+/);
     cy.contains('Log out');
   });
 });
