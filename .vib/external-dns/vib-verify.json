@@ -44,6 +44,17 @@
             "endpoint": "lb-external-dns-http",
             "app_protocol": "HTTP"
           }
+        },
+        {
+          "action_id": "goss",
+          "params": {
+            "resources": {
+              "path": "/.vib/external-dns/goss"
+            },
+            "remote": {
+              "workload": "deploy-external-dns"
+            }
+          }
         }
       ]
     }
