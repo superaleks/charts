@@ -7,7 +7,7 @@ ExternalDNS is a Kubernetes addon that configures public DNS servers with inform
 [Overview of ExternalDNS](https://github.com/kubernetes-incubator/external-dns)
 
 Trademarks: This software listing is packaged by Bitnami. The respective trademarks mentioned in the offering are owned by the respective companies, and use of them does not imply any affiliation or endorsement.
-                           
+
 ## TL;DR
 
 ```console
@@ -57,7 +57,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `global.imageRegistry`    | Global Docker image registry                    | `""`  |
 | `global.imagePullSecrets` | Global Docker registry secret names as an array | `[]`  |
 
-
 ### Common parameters
 
 | Name                | Description                                                                                  | Value           |
@@ -69,7 +68,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `commonAnnotations` | Annotations to add to all deployed objects                                                   | `{}`            |
 | `extraDeploy`       | Array of extra objects to deploy with the release (evaluated as a template).                 | `[]`            |
 | `kubeVersion`       | Force target Kubernetes version (using Helm capabilities if not set)                         | `""`            |
-
 
 ### external-dns parameters
 
@@ -145,7 +143,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `designate.userDomainName`                    | When using the Designate provider, specify the OpenStack user domain name. (optional)                                                                                        | `""`                      |
 | `designate.projectName`                       | When using the Designate provider, specify the OpenStack project name. (optional)                                                                                            | `""`                      |
 | `designate.username`                          | When using the Designate provider, specify the OpenStack authentication username. (optional)                                                                                 | `""`                      |
-| `designate.customCAHostPath`                  | When using the Designate provider, use a CA file already on the host to validate Openstack APIs.  This conflicts with `designate.customCA.enabled`                           | `""`                      |
+| `designate.customCAHostPath`                  | When using the Designate provider, use a CA file already on the host to validate Openstack APIs. This conflicts with `designate.customCA.enabled`                            | `""`                      |
 | `designate.customCA.enabled`                  | When using the Designate provider, enable a custom CA (optional)                                                                                                             | `false`                   |
 | `designate.customCA.content`                  | When using the Designate provider, set the content of the custom CA                                                                                                          | `""`                      |
 | `designate.customCA.mountPath`                | When using the Designate provider, set the mountPath in which to mount the custom CA configuration                                                                           | `/config/designate`       |
@@ -322,7 +320,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `metrics.serviceMonitor.labels`               | Used to pass Labels that are required by the installed Prometheus Operator                                                                                                   | `{}`                      |
 | `metrics.serviceMonitor.jobLabel`             | The name of the label on the target service to use as the job name in prometheus.                                                                                            | `""`                      |
 
-
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
@@ -353,11 +350,14 @@ This chart allows you to set your custom affinity using the `affinity` parameter
 As an alternative, you can use of the preset configurations for pod affinity, pod anti-affinity, and node affinity available at the [bitnami/common](https://github.com/bitnami/charts/tree/master/bitnami/common#affinities) chart. To do so, set the `podAffinityPreset`, `podAntiAffinityPreset`, or `nodeAffinityPreset` parameters.
 
 ### Using IRSA
+
 If you are deploying to AWS EKS and you want to leverage [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). You will need to override `fsGroup` and `runAsUser` with `65534`(nfsnobody) and `0` respectively. Otherwise service account token will not be properly mounted.
 You can use the following arguments:
+
 ```
 --set podSecurityContext.fsGroup=65534 --set podSecurityContext.runAsUser=0
 ```
+
 ## Tutorials
 
 Find information about the requirements for each DNS provider on the link below:
@@ -371,6 +371,7 @@ For instance, to install ExternalDNS on AWS, you need to:
 - Install ExternalDNS chart using the command below:
 
 > Note: replace the placeholder HOSTED_ZONE_IDENTIFIER and HOSTED_ZONE_NAME, with your hosted zoned identifier and name, respectively.
+
 ```bash
 $ helm install my-release \
   --set provider=aws \
@@ -383,6 +384,7 @@ $ helm install my-release \
 ## Troubleshooting
 
 Find more information about how to deal with common errors related to Bitnami's Helm charts in [this troubleshooting guide](https://docs.bitnami.com/general/how-to/troubleshoot-helm-chart-issues).
+
 ## Upgrading
 
 ### To 6.0.0
@@ -414,7 +416,7 @@ This version also introduces `bitnami/common`, a [library chart](https://helm.sh
 **What changes were introduced in this major version?**
 
 - Previous versions of this Helm Chart use `apiVersion: v1` (installable by both Helm 2 and 3), this Helm Chart was updated to `apiVersion: v2` (installable by Helm 3 only). [Here](https://helm.sh/docs/topics/charts/#the-apiversion-field) you can find more information about the `apiVersion` field.
-- The different fields present in the *Chart.yaml* file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
+- The different fields present in the _Chart.yaml_ file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
 
 **Considerations when upgrading to this version**
 
@@ -470,4 +472,4 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License
