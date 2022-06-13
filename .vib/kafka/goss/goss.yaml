@@ -1,15 +1,16 @@
 command:
-  grafanacli:
-    exec: java -v
+  create-kafka-topic:
+    exec: bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
     exit-status: 0
     stderr: [ ]
+    stdout: 
+      - Created topic quickstart-events
     timeout: 20000
 file:
   /var/run/secrets/kubernetes.io/serviceaccount:
-    mode: "0644"
-    filetype: folder
+    mode: "3777"
+    filetype: directory
     exists: true
-    group: root
   /opt/bitnami/kafka/logs:
     filetype: directory
     exists: true
