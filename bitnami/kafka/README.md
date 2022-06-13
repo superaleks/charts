@@ -7,7 +7,7 @@ Apache Kafka is a distributed streaming platform designed to build real-time pip
 [Overview of Apache Kafka](http://kafka.apache.org/)
 
 Trademarks: This software listing is packaged by Bitnami. The respective trademarks mentioned in the offering are owned by the respective companies, and use of them does not imply any affiliation or endorsement.
-                           
+
 ## TL;DR
 
 ```console
@@ -60,7 +60,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `global.imagePullSecrets` | Global Docker registry secret names as an array | `[]`  |
 | `global.storageClass`     | Global StorageClass for Persistent Volume(s)    | `""`  |
 
-
 ### Common parameters
 
 | Name                     | Description                                                                             | Value           |
@@ -75,7 +74,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `diagnosticMode.enabled` | Enable diagnostic mode (all probes will be disabled and the command will be overridden) | `false`         |
 | `diagnosticMode.command` | Command to override all containers in the statefulset                                   | `["sleep"]`     |
 | `diagnosticMode.args`    | Args to override all containers in the statefulset                                      | `["infinity"]`  |
-
 
 ### Kafka parameters
 
@@ -144,7 +142,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `auth.zookeeper.tls.type`                         | Format to use for TLS certificates. Allowed types: `jks` and `pem`.                                                                                                                 | `jks`                               |
 | `auth.zookeeper.tls.verifyHostname`               | Hostname validation.                                                                                                                                                                | `true`                              |
 | `auth.zookeeper.tls.existingSecret`               | Name of the existing secret containing the TLS certificates for ZooKeeper client communications.                                                                                    | `""`                                |
-| `auth.zookeeper.tls.existingSecretKeystoreKey`    | The secret key from the  auth.zookeeper.tls.existingSecret containing the Keystore.                                                                                                 | `zookeeper.keystore.jks`            |
+| `auth.zookeeper.tls.existingSecretKeystoreKey`    | The secret key from the auth.zookeeper.tls.existingSecret containing the Keystore.                                                                                                  | `zookeeper.keystore.jks`            |
 | `auth.zookeeper.tls.existingSecretTruststoreKey`  | The secret key from the auth.zookeeper.tls.existingSecret containing the Truststore.                                                                                                | `zookeeper.truststore.jks`          |
 | `auth.zookeeper.tls.passwordsSecret`              | Existing secret containing Keystore and Truststore passwords.                                                                                                                       | `""`                                |
 | `auth.zookeeper.tls.passwordsSecretKeystoreKey`   | The secret key from the auth.zookeeper.tls.passwordsSecret containing the password for the Keystore.                                                                                | `keystore-password`                 |
@@ -159,7 +157,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `extraEnvVars`                                    | Extra environment variables to add to Kafka pods                                                                                                                                    | `[]`                                |
 | `extraEnvVarsCM`                                  | ConfigMap with extra environment variables                                                                                                                                          | `""`                                |
 | `extraEnvVarsSecret`                              | Secret with extra environment variables                                                                                                                                             | `""`                                |
-
 
 ### Statefulset parameters
 
@@ -227,7 +224,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `pdb.minAvailable`                      | Maximum number/percentage of unavailable Kafka replicas                                                                                                                                       | `""`            |
 | `pdb.maxUnavailable`                    | Maximum number/percentage of unavailable Kafka replicas                                                                                                                                       | `1`             |
 
-
 ### Traffic Exposure parameters
 
 | Name                                              | Description                                                                                       | Value                 |
@@ -275,7 +271,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `networkPolicy.externalAccess.from`               | customize the from section for External Access on tcp-external port                               | `[]`                  |
 | `networkPolicy.egressRules.customRules`           | Custom network policy rule                                                                        | `{}`                  |
 
-
 ### Persistence parameters
 
 | Name                           | Description                                                                                                                            | Value                     |
@@ -297,7 +292,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `logPersistence.selector`      | Selector to match an existing Persistent Volume for Kafka log data PVC. If set, the PVC can't have a PV dynamically provisioned for it | `{}`                      |
 | `logPersistence.mountPath`     | Mount path of the Kafka logs volume                                                                                                    | `/opt/bitnami/kafka/logs` |
 
-
 ### Volume Permissions parameters
 
 | Name                                                   | Description                                                                     | Value                   |
@@ -312,7 +306,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `volumePermissions.resources.requests`                 | Init container volume-permissions resource requests                             | `{}`                    |
 | `volumePermissions.containerSecurityContext.runAsUser` | User ID for the init container                                                  | `0`                     |
 
-
 ### Other Parameters
 
 | Name                                          | Description                                                                                    | Value   |
@@ -322,7 +315,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `serviceAccount.automountServiceAccountToken` | Allows auto mount of ServiceAccountToken on the serviceAccount created                         | `true`  |
 | `serviceAccount.annotations`                  | Additional custom annotations for the ServiceAccount                                           | `{}`    |
 | `rbac.create`                                 | Whether to create & use RBAC resources or not                                                  | `false` |
-
 
 ### Metrics parameters
 
@@ -405,7 +397,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `metrics.serviceMonitor.honorLabels`                        | Specify honorLabels parameter to add the scrape endpoint                                                                         | `false`                                                                                 |
 | `metrics.serviceMonitor.jobLabel`                           | The name of the label on the target service to use as the job name in prometheus.                                                | `""`                                                                                    |
 
-
 ### Kafka provisioning parameters
 
 | Name                                                 | Description                                                                                                                   | Value                 |
@@ -454,7 +445,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `provisioning.initContainers`                        | Add additional Add init containers to the Kafka provisioning pod(s)                                                           | `[]`                  |
 | `provisioning.waitForKafka`                          | If true use an init container to wait until kafka is ready before starting provisioning                                       | `true`                |
 
-
 ### ZooKeeper chart parameters
 
 | Name                                 | Description                                                                                                                                                             | Value               |
@@ -471,7 +461,6 @@ The command removes all the Kubernetes components associated with the chart and 
 | `zookeeper.persistence.accessModes`  | Persistent Volume access modes                                                                                                                                          | `["ReadWriteOnce"]` |
 | `zookeeper.persistence.size`         | Persistent Volume size                                                                                                                                                  | `8Gi`               |
 | `externalZookeeper.servers`          | List of external zookeeper servers to use. Typically used in combination with 'zookeeperChrootPath'.                                                                    | `[]`                |
-
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
@@ -503,7 +492,7 @@ Bitnami will release a new chart updating its containers if a new version of the
 
 Any environment variable beginning with `KAFKA_CFG_` will be mapped to its corresponding Kafka key. For example, use `KAFKA_CFG_BACKGROUND_THREADS` in order to set `background.threads`. In order to pass custom environment variables use the `extraEnvVars` property.
 
-Using `extraEnvVars` with `KAFKA_CFG_` is the preferred and simplest way to add custom Kafka parameters not otherwise specified in this chart. Alternatively, you can provide a *full* Kafka configuration using `config` or `existingConfigmap`.
+Using `extraEnvVars` with `KAFKA_CFG_` is the preferred and simplest way to add custom Kafka parameters not otherwise specified in this chart. Alternatively, you can provide a _full_ Kafka configuration using `config` or `existingConfigmap`.
 Setting either `config` or `existingConfigmap` will cause the chart to disregard `KAFKA_CFG_` settings, which are used by many other Kafka-related chart values described above, as well as dynamically generated parameters such as `zookeeper.connect`. This can cause unexpected behavior.
 
 ### Listeners configuration
@@ -521,7 +510,7 @@ For more complex configurations, set the `listeners`, `advertisedListeners` and 
 You can configure different authentication protocols for each listener you configure in Kafka. For instance, you can use `sasl_tls` authentication for client communications, while using `tls` for inter-broker communications. This table shows the available protocols and the security they provide:
 
 | Method    | Authentication               | Encryption via TLS |
-|-----------|------------------------------|--------------------|
+| --------- | ---------------------------- | ------------------ |
 | plaintext | None                         | No                 |
 | tls       | None                         | Yes                |
 | mtls      | Yes (two-way authentication) | Yes                |
@@ -533,7 +522,7 @@ Learn more about how to configure Kafka to use the different authentication prot
 If you enabled SASL authentication on any listener, you can set the SASL credentials using the parameters below:
 
 - `auth.sasl.jaas.clientUsers`/`auth.sasl.jaas.clientPasswords`: when enabling SASL authentication for communications with clients.
-- `auth.sasl.jaas.interBrokerUser`/`auth.sasl.jaas.interBrokerPassword`:  when enabling SASL authentication for inter-broker communications.
+- `auth.sasl.jaas.interBrokerUser`/`auth.sasl.jaas.interBrokerPassword`: when enabling SASL authentication for inter-broker communications.
 - `auth.jaas.zookeeperUser`/`auth.jaas.zookeeperPassword`: In the case that the Zookeeper chart is deployed with SASL authentication enabled.
 
 In order to configure TLS authentication/encryption, you **can** create a secret per Kafka broker you have in the cluster containing the Java Key Stores (JKS) files: the truststore (`kafka.truststore.jks`) and the keystore (`kafka.keystore.jks`). Then, you need pass the secret names with the `auth.tls.existingSecrets` parameter when deploying the chart.
@@ -554,7 +543,7 @@ If, for some reason (like using Cert-Manager) you can not use the default JKS se
 - `auth.tls.jksTruststoreSecret` to define additional secret, where the `kafka.truststore.jks` is being kept. The truststore password **must** be the same as in `auth.tls.password`
 - `auth.tls.jksTruststore` to overwrite the default value of the truststore key (`kafka.truststore.jks`).
 - `auth.tls.jksKeystoreSAN` if you want to use a SAN certificate for your brokers. Setting this parameter would mean that the chart expects a existing key in the `auth.tls.jksTruststoreSecret` with the `auth.tls.jksKeystoreSAN` value and use this as a keystore for **all** brokers
-> **Note**: If you are using cert-manager, particularly when an ACME issuer is used, the `ca.crt` field is not put in the `Secret` that cert-manager creates. To handle this, the `auth.tls.pemChainIncluded` property can be set to `true` and the initContainer created by this Chart will attempt to extract the intermediate certs from the `tls.crt` field of the secret (which is a PEM chain)
+  > **Note**: If you are using cert-manager, particularly when an ACME issuer is used, the `ca.crt` field is not put in the `Secret` that cert-manager creates. To handle this, the `auth.tls.pemChainIncluded` property can be set to `true` and the initContainer created by this Chart will attempt to extract the intermediate certs from the `tls.crt` field of the secret (which is a PEM chain)
 
 > **Note**: The truststore/keystore from above **must** be protected with the same password as in `auth.tls.password`
 
@@ -681,7 +670,7 @@ You can use the following values to generate External-DNS annotations which auto
 externalAccess:
   service:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: "{{ .targetPod }}.example.com"
+      external-dns.alpha.kubernetes.io/hostname: '{{ .targetPod }}.example.com'
 ```
 
 ### Sidecars
@@ -840,7 +829,7 @@ image:
   registry: docker.io
   repository: bitnami/kafka
   tag: 2.8.0
-...
+---
 provisioning:
   image:
     registry: docker.io
@@ -865,9 +854,9 @@ This version also introduces `bitnami/common`, a [library chart](https://helm.sh
 **What changes were introduced in this major version?**
 
 - Previous versions of this Helm Chart use `apiVersion: v1` (installable by both Helm 2 and 3), this Helm Chart was updated to `apiVersion: v2` (installable by Helm 3 only). [Here](https://helm.sh/docs/topics/charts/#the-apiversion-field) you can find more information about the `apiVersion` field.
-- Move dependency information from the *requirements.yaml* to the *Chart.yaml*
-- After running `helm dependency update`, a *Chart.lock* file is generated containing the same structure used in the previous *requirements.lock*
-- The different fields present in the *Chart.yaml* file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
+- Move dependency information from the _requirements.yaml_ to the _Chart.yaml_
+- After running `helm dependency update`, a _Chart.lock_ file is generated containing the same structure used in the previous _requirements.lock_
+- The different fields present in the _Chart.yaml_ file has been ordered alphabetically in a homogeneous way for all the Bitnami Helm Charts
 
 **Considerations when upgrading to this version**
 
@@ -885,14 +874,14 @@ This version also introduces `bitnami/common`, a [library chart](https://helm.sh
 
 External access to brokers can now be achieved through the cluster's Kafka service.
 
-- `service.nodePort` -> deprecated  in favor of `service.nodePorts.client` and `service.nodePorts.external`
+- `service.nodePort` -> deprecated in favor of `service.nodePorts.client` and `service.nodePorts.external`
 
 ### To 11.7.0
 
 The way to configure the users and passwords changed. Now it is allowed to create multiple users during the installation by providing the list of users and passwords.
 
-- `auth.jaas.clientUser` (string) -> deprecated  in favor of `auth.jaas.clientUsers` (array).
-- `auth.jaas.clientPassword` (string) -> deprecated  in favor of `auth.jaas.clientPasswords` (array).
+- `auth.jaas.clientUser` (string) -> deprecated in favor of `auth.jaas.clientUsers` (array).
+- `auth.jaas.clientPassword` (string) -> deprecated in favor of `auth.jaas.clientPasswords` (array).
 
 ### To 11.0.0
 
@@ -989,4 +978,4 @@ Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.
+limitations under the License
