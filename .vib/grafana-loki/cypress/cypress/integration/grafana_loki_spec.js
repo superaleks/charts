@@ -71,13 +71,12 @@ it('can publish and retrieve a label', () => {
   });
 });
 
-//Make the test fail on purpose
 it('can get a list of series', () => {
   cy.request({
     method: 'GET',
     url: 'loki/api/v1/series',
     form: true,
   }).then((response) => {
-    expect(response.status).to.eq(500);
+    expect(response.status).to.eq(200);
   });
 });
