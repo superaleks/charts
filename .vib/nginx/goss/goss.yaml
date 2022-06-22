@@ -1,6 +1,3 @@
-port:
-  http:80:
-    listening: true
 file:
   /opt/bitnami/nginx/conf/nginx.conf:
     exists: true
@@ -27,3 +24,9 @@ command:
     stdout: []
     stderr: 
       - "signal process started"
+  nginx-home:
+    exec: cat /opt/bitnami/nginx/html/index.html
+    exit-status: 0
+    stdout: []
+    stderr: 
+      - "If you see this page, the nginx web server is successfully installed and working. Further configuration is required." 
