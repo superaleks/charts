@@ -12,7 +12,7 @@ command:
     stdout: []
     stderr: []
   curl-landing-page:
-    exec: curl nginx.default.svc.cluster.local
+    exec: curl http://localhost
     exit-status: 0
     stdout: []
     stderr: []  
