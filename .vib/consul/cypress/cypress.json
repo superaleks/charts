@@ -3,6 +3,8 @@
   "pageLoadTimeout": 240000,
   "defaultCommandTimeout": 60000,
   "env": {
-    "datacenterName": "datacenter1"
+    "datacenterName": "datacenter1",
+    "replicaCount": "3",
+    "containerPorts": "8400"
   }
 }
