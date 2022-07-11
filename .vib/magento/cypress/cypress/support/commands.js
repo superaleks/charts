@@ -42,9 +42,14 @@ Cypress.Commands.add(
     cy.get('#username').type(username);
     cy.get('#login').type(password);
     cy.get('.action-login').click();
-    cy.get('.page-title').should('have.text', 'Dashboard');
+    cy.contains('.page-title', 'Dashboard');
   }
 );
+
+Cypress.Commands.add('logout', () => {
+  cy.get('[title="My Account"]').click();
+  cy.contains('Sign Out').click();
+});
 
 Cypress.on('uncaught:exception', (err, runnable) => {
   // we expect an application error with message 'rendering locks'
