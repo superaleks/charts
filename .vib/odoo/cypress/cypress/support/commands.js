@@ -20,5 +20,6 @@ Cypress.Commands.add(
     cy.get('#login').type(username);
     cy.get('#password').type(password);
     cy.contains('.btn', 'Log in').click();
+    cy.contains('Reset password').should('not.exist');
   }
 );
